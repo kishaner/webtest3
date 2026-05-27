@@ -1,0 +1,19 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* or whatever height your section was */
+  overflow: hidden;
+}
+
+.video-section video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🔥 THIS makes it behave like background */
+  transform: translate(-50%, -50%);
+}</style>
+<!-- end Simple Custom CSS and JS -->
