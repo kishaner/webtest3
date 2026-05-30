@@ -559,6 +559,257 @@ a.contact-card:hover .contact-card__arrow {
   }
 }
 </style>
+<style id="responsive-improvements">
+/* ═══════════════════════════════════════════
+   RESPONSIVE IMPROVEMENTS — all breakpoints
+   ═══════════════════════════════════════════ */
+
+/* ── Global image safety ── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Prevent horizontal overflow on all widths ── */
+body, .elementor, .elementor-156 {
+  overflow-x: hidden;
+}
+
+/* ── Fix fixed 520px text widget width on small screens ── */
+.elementor-element-6f99c144 {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* ── Hero title: fluid font size so it never overflows ── */
+.elementor-element-43831e8d .elementor-heading-title {
+  font-size: clamp(28px, 4vw, 85px) !important;
+  line-height: 1.05em !important;
+}
+
+/* ── Hero row: both columns same height, no gap ── */
+.elementor-element-54768fda {
+  align-items: stretch !important;
+  gap: 0 !important;
+  min-height: 100vh !important;
+}
+
+/* ── Hero text column: right padding + vertical centering ── */
+.elementor-element-b3dbfd8 {
+  padding-right: 4% !important;
+  box-sizing: border-box !important;
+  justify-content: center !important;
+}
+
+/* ── Hero video/logo column: fill full height of the row ── */
+.elementor-element-59102c52 {
+  align-self: stretch !important;
+}
+
+/* Mobile: each column becomes full-width stack, natural height */
+@media (max-width: 767px) {
+  .elementor-element-54768fda {
+    min-height: unset !important;
+  }
+  .elementor-element-b3dbfd8 {
+    padding-right: 6% !important;
+    justify-content: flex-start !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SMALL MOBILE  (≤ 480px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* Hero: reduce padding, tighten text */
+  .elementor-element-54768fda {
+    --padding-left: 0% !important;
+  }
+  .elementor-element-b3dbfd8 {
+    padding: 28px 6% 28px !important;
+  }
+
+  /* Hero title — token already at 28px via kit, keep it */
+  /* Divider — hide on tiny screens */
+  .elementor-element-322f706 {
+    display: none !important;
+  }
+
+  /* Hero button — full-width pill */
+  .elementor-element-6380de1e .elementor-button {
+    padding: 14px 20px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  .elementor-element-6380de1e .elementor-button-wrapper {
+    width: 100%;
+  }
+
+  /* About Us section — tight padding */
+  .elementor-element-5e07416a {
+    --padding-left: 0% !important;
+    --padding-right: 0% !important;
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    margin-top: 32px !important;
+    gap: 20px !important;
+    row-gap: 20px !important;
+  }
+
+  /* Products section */
+  .elementor-element-603cf9f8 {
+    margin-top: 32px !important;
+  }
+
+  /* Product image grid — single column */
+  .elementor-element-7749d59 {
+    grid-template-columns: 1fr !important;
+  }
+  .elementor-element-7749d59 .elementor-widget-container img {
+    max-height: 240px !important;
+  }
+
+  /* Swiper slides — fit narrow screens */
+  .swiper-slide {
+    width: 220px !important;
+    height: 300px !important;
+  }
+
+  /* Locations */
+  .elementor-element-b27b3b6 {
+    padding: 24px 5% 40px !important;
+  }
+
+  /* Contact */
+  .elementor-element-f56897b > .e-con-inner {
+    padding: 40px 5% !important;
+    gap: 20px !important;
+  }
+  .contact-heading {
+    font-size: 24px !important;
+  }
+  .contact-card {
+    padding: 16px 18px !important;
+    gap: 14px !important;
+  }
+  .contact-card__value {
+    font-size: 13px !important;
+    word-break: break-all;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE  (≤ 767px) — augments existing rules
+   ═══════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* About section horizontal padding to match hero */
+  .elementor-element-5e07416a {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+
+  /* Products section horizontal padding */
+  .elementor-element-603cf9f8 {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+  /* Vinut boxed section inner */
+  .elementor-element-c8fe48e > .e-con-inner {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Swiper nav arrows — smaller on mobile */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 14px !important;
+  }
+
+  /* Ensure About text block is full-width */
+  .elementor-element-47bb9e4b {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Fix hard-coded 520px width on hero subtitle */
+  .elementor-element-6f99c144 {
+    width: 100% !important;
+    max-width: 100% !important;
+    --container-widget-width: 100% !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   TABLET  (768px – 1024px) — augments existing
+   ═══════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  /* About section — sensible padding */
+  .elementor-element-5e07416a {
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+  }
+
+  /* Products section */
+  .elementor-element-603cf9f8 {
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+  }
+
+  /* Product image grid — 2 columns */
+  .elementor-element-7749d59 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Hero subtitle — don't clip at 520px on mid-width */
+  .elementor-element-6f99c144 {
+    max-width: 90% !important;
+    width: 90% !important;
+  }
+
+  /* Swiper spaceBetween is set in JS; make slides a bit smaller */
+  .swiper-slide {
+    width: 260px !important;
+    height: 350px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   LARGE DESKTOP  (≥ 1600px)
+   ═══════════════════════════════════════════ */
+@media (min-width: 1600px) {
+  /* Swiper slides — a touch larger on big screens */
+  .swiper-slide {
+    width: 320px !important;
+    height: 430px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   TOUCH / HOVER DEVICE DISTINCTIONS
+   ═══════════════════════════════════════════ */
+@media (hover: none) {
+  /* Remove hover transform on touch devices (prevents sticky hover state) */
+  a.contact-card:hover {
+    transform: none !important;
+  }
+  a.contact-card:hover .contact-card__arrow {
+    transform: none !important;
+  }
+  /* Make contact cards slightly bigger touch targets */
+  .contact-card {
+    padding: 18px 22px !important;
+  }
+}
+</style>
 </head>
 <body class="home wp-singular page-template page-template-elementor_canvas page page-id-156 wp-theme-hello-biz ehbiz-default elementor-default elementor-template-canvas elementor-kit-125 elementor-page elementor-page-156">
 			<div data-elementor-type="wp-page" data-elementor-id="156" class="elementor elementor-156">

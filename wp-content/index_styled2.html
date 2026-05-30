@@ -38,12 +38,162 @@ For brushing up on your CSS knowledge, check out http://www.w3schools.com/css/cs
 End of comment */ 
 
 .Vinut-swiper{
-	width: 1600px !important;
-    max-width: 1600px !important;
+	width: 100% !important;
+    max-width: 100vw !important;
     margin-left: 0px !important;
     margin-right: 0px !important;
 	padding-left: 0px !important;
-	
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL RESPONSIVE IMPROVEMENTS
+   ═══════════════════════════════════════════ */
+
+/* Prevent horizontal overflow site-wide */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* All images are fluid by default */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Hero section ── */
+/* Hero text: remove fixed max-width on smaller viewports */
+@media (max-width: 900px) {
+  .elementor-element-6f99c144 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Hero: ensure adequate right-side padding when stacked */
+@media (max-width: 767px) {
+  /* Hero wrapper: equal horizontal padding when stacked */
+  .elementor-element-54768fda {
+    --padding-left: 5% !important;
+    --padding-right: 5% !important;
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+
+  /* Hero text col: top breathing room after video */
+  .elementor-element-b3dbfd8 {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* Hero divider: centre on mobile */
+  .elementor-element-322f706 .elementor-divider-separator {
+    margin: 0 auto !important;
+  }
+
+  /* Tighten About Us & Products top gap on mobile (was 30%) */
+  .elementor-element-5e07416a {
+    --margin-top: 40px !important;
+    margin-top: 40px !important;
+  }
+  .elementor-element-603cf9f8 {
+    --margin-top: 40px !important;
+    margin-top: 40px !important;
+  }
+}
+
+/* ── Swiper / carousel ── */
+/* Slides: clamp width so cards don't overflow on narrow screens */
+.swiper-slide {
+  max-width: min(280px, 80vw) !important;
+}
+
+@media (max-width: 480px) {
+  /* On very small phones, reduce spaceBetween effect */
+  .oneswiper {
+    padding: 0 8px !important;
+  }
+  .swiper-slide {
+    max-width: 72vw !important;
+  }
+  /* Swiper navigation arrows: smaller on phones */
+  .swiper-button-prev,
+  .swiper-button-next {
+    --swiper-navigation-size: 22px;
+  }
+}
+
+/* ── About Us image section ── */
+/* Image container: always fluid, cap height sensibly */
+.elementor-element-2d4385f9 img,
+.elementor-element-62f9959d img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 8px;
+}
+
+/* ── Products section padding ── */
+@media (max-width: 480px) {
+  .elementor-element-c8fe48e .e-con-inner,
+  .elementor-element-603cf9f8 {
+    --padding-left: 4% !important;
+    --padding-right: 4% !important;
+  }
+}
+
+/* ── Contact cards: prevent value text overflow ── */
+.contact-card__value {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 380px) {
+  .contact-card {
+    padding: 16px 14px !important;
+    gap: 12px !important;
+  }
+  .contact-card__icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .contact-card__value {
+    font-size: 13px !important;
+  }
+  .contact-heading {
+    font-size: 26px !important;
+  }
+}
+
+/* ── Locations list ── */
+@media (max-width: 480px) {
+  .elementor-element-b27b3b6 {
+    padding: 0 4% 48px !important;
+  }
+}
+
+/* ── Tablet (768px – 1024px) improvements ── */
+@media (max-width: 1024px) and (min-width: 768px) {
+  /* About Us: side-by-side image + text remain balanced */
+  .elementor-element-ef2ce77 {
+    flex-wrap: wrap !important;
+  }
+  .elementor-element-2d4385f9,
+  .elementor-element-47bb9e4b {
+    flex: 1 1 45% !important;
+    min-width: 280px !important;
+  }
+}
+
+/* ── Print / large desktop safety ── */
+@media (min-width: 1600px) {
+  /* Prevent hero text from stretching too wide on ultra-wide monitors */
+  .elementor-element-b3dbfd8 {
+    max-width: 720px !important;
+  }
 }
 
 </style>
@@ -88,23 +238,82 @@ End of comment */
   grid-template-rows: var(--e-con-grid-template-rows, auto);
   grid-auto-flow: var(--grid-auto-flow, row);
 }
-/* Hero row: text left 45% + video right 55%, together = 100vw x 100vh */
-.elementor-element-54768fda { flex-direction: row; min-height: 100vh; align-items: stretch; }
-@media (min-width: 768px) {
-  .elementor-element-b3dbfd8  { width: 45%; flex-shrink: 0; }
-  .elementor-element-59102c52 { width: 55%; flex-shrink: 0; min-height: 100vh; }
+/* ── Hero row: text left + video right ─────────────────────────────────────
+   Root cause of overlap: the wrapper had padding-left:8% so the two fixed-
+   width children (45% + 55% = 100%) overflowed the padded inner space.
+   Fix: move all padding onto the text col itself and let the video grow to
+   fill the remainder. overflow:hidden on the wrapper ensures the video can
+   never bleed leftward over the text at any viewport width.
+   ────────────────────────────────────────────────────────────────────────── */
+.elementor-element-54768fda {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  min-height: 100vh;
+  align-items: stretch;
+  overflow: hidden;
+  --padding-left: 0% !important;
+  --padding-right: 0% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
-/* Tablet: stack vertically, video moves above text at 50vh */
+
+@media (min-width: 1025px) {
+  /* Text col: fixed 45%, never shrinks, carries its own inner padding */
+  .elementor-element-b3dbfd8 {
+    width: 45% !important;
+    flex: 0 0 45% !important;
+    padding-left: 8% !important;
+    padding-right: 3% !important;
+    box-sizing: border-box;
+  }
+  /* Video col: grows into the remaining space — no fixed right edge */
+  .elementor-element-59102c52 {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-height: 100vh;
+  }
+}
+
+/* Tablet (768–1024px): stack vertically, video above text */
 @media (max-width: 1024px) and (min-width: 768px) {
-  .elementor-element-54768fda { flex-direction: column; }
-  .elementor-element-b3dbfd8  { width: 100%; }
-  .elementor-element-59102c52 { width: 100vw; min-height: 50vh; order: -99999; }
+  .elementor-element-54768fda {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+  }
+  .elementor-element-b3dbfd8 {
+    width: 100% !important;
+    flex: none !important;
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+    box-sizing: border-box;
+  }
+  .elementor-element-59102c52 {
+    width: 100% !important;
+    flex: none !important;
+    min-height: 50vh;
+    order: -99999;
+  }
 }
+
 /* Mobile: same stack, video 50vh above text */
 @media (max-width: 767px) {
-  .elementor-element-54768fda { flex-direction: column; flex-wrap: wrap; }
-  .elementor-element-b3dbfd8  { width: 100%; }
-  .elementor-element-59102c52 { width: 100%; min-height: 50vh; order: -99999; }
+  .elementor-element-54768fda {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+  }
+  .elementor-element-b3dbfd8 {
+    width: 100% !important;
+    flex: none !important;
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    box-sizing: border-box;
+  }
+  .elementor-element-59102c52 {
+    width: 100% !important;
+    flex: none !important;
+    min-height: 50vh;
+    order: -99999;
+  }
 }
 /* Video fills its container */
 .elementor-background-video-container {
